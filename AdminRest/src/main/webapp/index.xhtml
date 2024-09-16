@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:c="jakarta.tags.core">
+    <h:head>
+        <meta charset="utf-8" />
+        <title>AsAdamin REST PoC</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="${request.contextPath}/blinky/ui/css/payara.css" type="text/css" media="all"/>
+        <link rel="preload" href="${request.contextPath}/blinky/ui/fonts/ibm-plex-sans-v2-latin-regular.woff2" as="font" />
+    </h:head>
+    <h:body class="page theme--light">
+        <div class="page__main">
+            <blinky-sidebar class="page__sidebar">
+                <aside class="sidebar">
+                    <header class="sidebar__header">AdminUI REST PoC</header>
+                    <blinky-scroll-hints class="sidebar__content">
+                        SIDEBAR MENU SPACE 
+                        Warning -- the scructure in documentation doesn't work, I followed demo.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quam tortor, ullamcorper ut ex nec, pretium porta risus. Phasellus ac ullamcorper urna. Aliquam ultricies elit in dui placerat vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                    </blinky-scroll-hints>
+                    <footer class="sidebar__footer">
+                        <a href="https://payara.github.io/pattern-library/v0/index.html" target="_blank">Blinky</a>
+                    </footer>
+                </aside>
+            </blinky-sidebar><!-- .page__sidebar -->
+
+            <div class="page__content">
+                <div class="page__content-inner">
+                    <nav aria-label="Breadcrumb">
+                        <ol class="breadcrumb">
+                            <li><a href="${request.contextPath}">Home</a></li>
+                            <li><a href="${request.contextPath}" aria-current="page">List of Applications</a></li>
+                        </ol>
+                    </nav>
+
+                    <div class="cards">
+                        <div>
+                            <h1>List of Applications</h1>
+
+                            <div class="cards">
+                                <div class="card">
+
+                                    <h:dataTable value="#{applicationsBean.applications}" var="app" class="table table__nowrap--3">
+                                        <h:column>
+                                            <f:facet name="header">Name</f:facet>
+                                            <h:outputText value="#{app.name}" />
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Services</f:facet>
+                                            <ui:repeat value="#{app.services}" var="service" varStatus="serviceStatus">
+                                                <h:panelGroup rendered="#{service eq 'metrics'}">
+                                                    <a href="http://localhost:4848/metrics" target="_blank">metrics</a>
+                                                </h:panelGroup>
+                                                <h:panelGroup rendered="#{service eq 'openapi'}">
+                                                    <a href="http://localhost:4848/openapi" target="_blank">openapi</a>
+                                                </h:panelGroup>
+                                                <h:panelGroup rendered="#{service eq 'web'}">
+                                                    <a href="/#{app.name}" target="_blank">web</a>
+                                                </h:panelGroup>
+                                                <h:panelGroup rendered="#{not (service == 'metrics' or service == 'openapi' or service == 'web')}">
+                                                    <h:outputText value="#{service}" />
+                                                </h:panelGroup>
+
+                                                <h:outputText value=", " rendered="#{!serviceStatus.last}" />
+                                            </ui:repeat>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div><!-- .card -->
+                            </div><!-- .cards -->
+                        </div>
+                    </div>
+
+                </div><!-- .page__content-inner -->
+            </div><!-- .page__content -->
+        </div><!-- .page__main -->
+
+        <footer class="page__footer">
+            <a href="https://www.payara.fish" target="_blank">Payara Services Ltd.</a>
+        </footer>
+    </h:body>
+</html>
