@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:c="jakarta.tags.core">
+    <h:head>
+        <meta charset="utf-8" />
+        <title>AsAdamin REST PoC</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="${request.contextPath}/blinky/ui/css/payara.css" type="text/css" media="all"/>
+        <link rel="preload" href="${request.contextPath}/blinky/ui/fonts/ibm-plex-sans-v2-latin-regular.woff2" as="font" />
+    </h:head>
+    <h:body class="page theme--light">
+        <div class="page__main">
+            <blinky-sidebar class="page__sidebar">
+                <aside class="sidebar">
+                    <header class="sidebar__header">AdminUI REST PoC</header>
+                    <blinky-scroll-hints class="sidebar__content">
+                        <a href="index.xhtml">List of Applications</a>
+                        <a href="deploy.xhtml">Deploy New Application</a>
+                    </blinky-scroll-hints>
+                    <footer class="sidebar__footer">
+                        <a href="https://payara.github.io/pattern-library/v0/index.html" target="_blank">Blinky</a>
+                    </footer>
+                </aside>
+            </blinky-sidebar><!-- .page__sidebar -->
+
+            <div class="page__content">
+                <div class="page__content-inner">
+                    <nav aria-label="Breadcrumb">
+                        <ol class="breadcrumb">
+                            <li><a href="${request.contextPath}">Home</a></li>
+                            <li><a href="${request.contextPath}" aria-current="page">Deploy New Application</a></li>
+                        </ol>
+                    </nav>
+
+                    <div class="cards">
+                        <div>
+                            <h1>Deploy New Application</h1>
+
+                            <div class="cards">
+                                <div class="card">
+
+                                    <h:form id="deployform" >
+                                        Server path: <h:inputText /> <h:commandButton action="#{deploymentBean.deploy}" value="Deploy" />
+                                    </h:form>
+                                </div><!-- .card -->
+                            </div><!-- .cards -->
+                        </div>
+                    </div>
+
+                </div><!-- .page__content-inner -->
+            </div><!-- .page__content -->
+        </div><!-- .page__main -->
+
+        <footer class="page__footer">
+            <a href="https://www.payara.fish" target="_blank">Payara Services Ltd.</a>
+        </footer>
+    </h:body>
+</html>
