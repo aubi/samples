@@ -19,9 +19,21 @@
                 <aside class="sidebar">
                     <header class="sidebar__header">AdminUI REST PoC</header>
                     <blinky-scroll-hints class="sidebar__content">
-                        SIDEBAR MENU SPACE 
-                        Warning -- the scructure in documentation doesn't work, I followed demo.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quam tortor, ullamcorper ut ex nec, pretium porta risus. Phasellus ac ullamcorper urna. Aliquam ultricies elit in dui placerat vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                        <nav class="menu menu--vertical">
+                            <ul class="menu__group">
+                                <li class="menu__item">
+                                    <a href="index.xhtml" class="menu__content">
+                                        <span class="menu__text">List of Applications</span>
+                                    </a>
+                                </li>
+                                <li class="menu__item">
+                                    <a href="deploy.xhtml" class="menu__content">
+                                        <span class="menu__text">Deploy New Application</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        FIXME: use template!
                     </blinky-scroll-hints>
                     <footer class="sidebar__footer">
                         <a href="https://payara.github.io/pattern-library/v0/index.html" target="_blank">Blinky</a>
