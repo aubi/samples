@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core">
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="title">List of Applications</ui:define>
+            <ui:define name="body">
+                <h:dataTable value="#{applicationsBean.applications}" var="app" class="table table__nowrap--3">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{app.name}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Services</f:facet>
+                        <ui:repeat value="#{app.services}" var="service" varStatus="serviceStatus">
+                            <h:panelGroup rendered="#{service eq 'metrics'}">
+                                <a href="http://localhost:4848/metrics" target="_blank">metrics</a>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{service eq 'openapi'}">
+                                <a href="http://localhost:4848/openapi" target="_blank">openapi</a>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{service eq 'web'}">
+                                <a href="/#{app.name}" target="_blank">web</a>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{not (service == 'metrics' or service == 'openapi' or service == 'web')}">
+                                <h:outputText value="#{service}" />
+                            </h:panelGroup>
+
+                            <h:outputText value=", " rendered="#{!serviceStatus.last}" />
+                        </ui:repeat>
+                    </h:column>
+                </h:dataTable>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
