@@ -9,7 +9,10 @@
             <ui:define name="title">Deploy New Application</ui:define>
             <ui:define name="body">
                 <h:form id="deployform" >
-                    Server path: <h:inputText /> <h:commandButton action="#{deploymentBean.deploy}" value="Deploy" />
+                    <p>Server path: <h:inputText value="#{deploymentBean.path}" /></p>
+                    <p>Force: <h:selectBooleanCheckbox value="#{deploymentBean.isForce}" /></p>
+                    <p><h:commandButton action="#{deploymentBean.deploy}" value="Deploy" /></p>
+                    <p>Result: #{deploymentBean.result}</p>
                 </h:form>
             </ui:define>
         </ui:composition>
