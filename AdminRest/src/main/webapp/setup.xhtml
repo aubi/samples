@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core">
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="title">Admin UI Setup</ui:define>
+            <ui:define name="body">
+                <h:form id="setupform" >
+                    <p>Server URL: <h:inputText value="#{setupBean.url}" /></p>
+                    <p>Admin username: <h:inputText value="#{setupBean.adminUsername}" /></p>
+                    <p>Admin password: <h:inputSecret value="#{setupBean.adminPassword}" /></p>
+                    <p>
+                        <h:commandButton action="#{setupBean.save}" value="Save" />
+                        <h:commandButton action="index" immediate="true" value="Cancel" />
+                    </p>
+                </h:form>
+                <p>Hints:</p>
+                <ul>
+                    <li>Security: <a href="https://docs.payara.fish/community/docs/Technical%20Documentation/Payara%20Server%20Documentation/Command%20Reference/enable-secure-admin.html">enable-secure-admin</a></li>
+                    <li>How to enable secure admin:
+                        <ul>
+                            <li>First, change admin password (must not be empty): <pre>./asadmin change-admin-password</pre></li>
+                            <li>Second, switch secure admin on: <pre>./asadmin enable-secure-admin</pre></li>
+                        </ul>
+                    </li>
+                </ul>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

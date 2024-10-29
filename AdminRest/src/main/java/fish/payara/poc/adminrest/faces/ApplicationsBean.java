@@ -1,6 +1,18 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSF/JSFManagedBean.java to edit this template
+ * Copyright (C) 2024 Payara Foundation and/or its affiliates. All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package fish.payara.poc.adminrest.faces;
 
@@ -8,6 +20,8 @@ import fish.payara.poc.adminrest.model.ApplicationInfo;
 import fish.payara.poc.adminrest.model.restapi.MapElement;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -34,6 +48,9 @@ import org.xml.sax.SAXException;
 @RequestScoped
 public class ApplicationsBean {
 
+    @Inject
+    private SetupBean setupBean;
+
     /**
      * Creates a new instance of ApplicationsBean
      */
@@ -58,6 +75,9 @@ public class ApplicationsBean {
          */
         HttpURLConnection connection = getConnection("http://localhost:4848/management/domain/applications/list-applications");
         connection.addRequestProperty("Accept", "application/xml");
+        connection.addRequestProperty(HttpHeaders.AUTHORIZATION, DeploymentBean.constructBasicAuthentication(
+                setupBean.getAdminUsername(), // "admin"
+                setupBean.getAdminPassword())); // ""
         Object content = connection.getContent(new Class[]{String.class});
         String type = connection.getContentType();
         String msg = connection.getResponseMessage();
