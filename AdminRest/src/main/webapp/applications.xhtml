@@ -24,31 +24,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="title">List of Applications</ui:define>
             <ui:define name="body">
-                <h:dataTable value="#{applicationsBean.applications}" var="app" class="table table__nowrap--3">
-                    <h:column>
-                        <f:facet name="header">Name</f:facet>
-                        <h:outputText value="#{app.name}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Services</f:facet>
-                        <ui:repeat value="#{app.services}" var="service" varStatus="serviceStatus">
-                            <h:panelGroup rendered="#{service eq 'metrics'}">
-                                <a href="http://localhost:4848/metrics" target="_blank">metrics</a>
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{service eq 'openapi'}">
-                                <a href="http://localhost:4848/openapi" target="_blank">openapi</a>
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{service eq 'web'}">
-                                <a href="/#{app.name}" target="_blank">web</a>
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{not (service == 'metrics' or service == 'openapi' or service == 'web')}">
-                                <h:outputText value="#{service}" />
-                            </h:panelGroup>
+                <h:form id="apps-form" class="form">
+                    <p class="form__row">
+                        <h:commandButton value="Refresh" action="#{applicationsBean.loadApplications}" class="button"/>
+                    </p>
+                    
+                    <div class="scroll">
+                        <div class="js__scroll__inner">
+                            <h:dataTable value="#{applicationsBean.applications}" var="app" class="table table__nowrap--3 gutter--t">
+                                <h:column>
+                                    <f:facet name="header">Name</f:facet>
+                                    <f:passThroughAttribute name="scope" value="row" /> <!-- key column according to the blinky doc -->
+                                    <h:outputText value="#{app.name}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Services</f:facet>
+                                    <ui:repeat value="#{app.services}" var="service" varStatus="serviceStatus">
+                                        <h:panelGroup rendered="#{service eq 'health'}">
+                                            <a href="http://localhost:4848/health" target="_blank">health</a>
+                                        </h:panelGroup>
+                                        <h:panelGroup rendered="#{service eq 'metrics'}">
+                                            <a href="http://localhost:4848/metrics" target="_blank">metrics</a>
+                                        </h:panelGroup>
+                                        <h:panelGroup rendered="#{service eq 'openapi'}">
+                                            <a href="http://localhost:4848/openapi" target="_blank">openapi</a>
+                                        </h:panelGroup>
+                                        <h:panelGroup rendered="#{service eq 'web'}">
+                                            <a href="/#{app.name}" target="_blank">web</a>
+                                        </h:panelGroup>
+                                        <h:panelGroup rendered="#{not (service == 'health' or service == 'metrics' or service == 'openapi' or service == 'web')}">
+                                            <h:outputText value="#{service}" />
+                                        </h:panelGroup>
 
-                            <h:outputText value=", " rendered="#{!serviceStatus.last}" />
-                        </ui:repeat>
-                    </h:column>
-                </h:dataTable>
+                                        <h:outputText value=", " rendered="#{!serviceStatus.last}" />
+                                    </ui:repeat>
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                    </div>
+                    <h:messages showDetail="true"/>
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>

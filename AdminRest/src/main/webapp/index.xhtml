@@ -24,10 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="title">Front Page</ui:define>
             <ui:define name="body">
+                <h1>AdminUI REST PoC</h1>
                 <p>Here will be a front page</p>
                 <p>TODOs:</p>
                 <ul>
-                    <li>Make upper left corner properly formatted (but linking to Home/index.xhtml)</li>
+                    <li>Add button to hide menu</li>
+                    <li>Menu should be still accessible, even in narrow window. Currently, there is no way to access other pages without menu.</li>
+                    <li>Do error/info messages according to <a href="https://payara.github.io/pattern-library/v0/components/detail/status--success.html">Blinky</a></li>
                 </ul>
             </ui:define>
         </ui:composition>

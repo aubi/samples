@@ -14,40 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fish.payara.poc.adminrest.model;
+package fish.payara.poc.adminrest.service.commands;
 
-import java.util.List;
+import fish.payara.poc.adminrest.model.restapi.RestResponse;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 /**
  *
- * @author aubi
+ * @author Petr Aubrecht <aubrecht@asoftware.cz>
  */
-public class ApplicationInfo {
-    private String name;
-    private List<String> services;
+public interface RemoteCommand {
 
-    public ApplicationInfo() {
-    }
+    public enum Verb {
+        GET, POST
+    };
 
-    public ApplicationInfo(String name, String services) {
-        this.name = name;
-        this.services = List.of(services.split(", "));
-    }
+    MultivaluedMap<String, String> createPayload();
 
-    public String getName() {
-        return name;
-    }
+    String getUrl();
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Verb getVerb();
 
-    public List<String> getServices() {
-        return services;
-    }
-
-    public void setServices(List<String> services) {
-        this.services = services;
-    }
-
+    void parseResult(RestResponse response);
 }

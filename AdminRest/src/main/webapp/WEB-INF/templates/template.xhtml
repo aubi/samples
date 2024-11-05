@@ -30,13 +30,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <link rel="preload" href="${request.contextPath}/blinky/ui/fonts/ibm-plex-sans-v2-latin-regular.woff2" as="font" />
     </h:head>
     <h:body class="page theme--light">
+        <header class="page__header">
+            <div class="cards card--no-pad js__main-menu">
+                <div class="card--content-width">
+                    <a href="index.xhtml" class="logo">
+                        <img src="images/logo.svg" alt="Payara" class="logo__full" />
+                    </a>
+                </div>
+            </div>
+        </header>
         <div class="page__main">
-            <blinky-sidebar class="page__sidebar">
+            <blinky-sidebar class="page__sidebar" toggle="1" minimized="0" toggle-label="Toggle Sidebar" >
                 <aside class="sidebar">
-                    <header class="sidebar__header"><a href="index.xhtml" class="menu__content">AdminUI REST PoC</a></header>
                     <blinky-scroll-hints class="sidebar__content">
                         <nav class="menu menu--vertical">
                             <ul class="menu__group">
+                                <li class="menu__item">
+                                    <a href="index.xhtml" class="menu__content">
+                                        <span class="menu__text">Home</span>
+                                    </a>
+                                </li>
                                 <li class="menu__item">
                                     <a href="setup.xhtml" class="menu__content">
                                         <span class="menu__text">Setup</span>
@@ -63,13 +76,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             <div class="page__content">
                 <div class="page__content-inner">
-                    <nav aria-label="Breadcrumb">
-                        <ol class="breadcrumb">
-                            <li><a href="${request.contextPath}">Home</a></li>
-                            <li><a href="${request.contextPath}" aria-current="page"><ui:insert name="title">Default Title</ui:insert></a></li>
-                        </ol>
-                    </nav>
-
+                    <div class="cards card--no-pad">
+                        <div>
+                            <nav aria-label="Breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li><a href="${request.contextPath}">Home</a></li>
+                                    <li><a href="${request.contextPath}" aria-current="page"><ui:insert name="title">Default Title</ui:insert></a></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
                     <div class="cards">
                         <div>
                             <h1><ui:insert name="title">Default Title</ui:insert></h1>

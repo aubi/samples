@@ -24,11 +24,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="title">Deploy New Application</ui:define>
             <ui:define name="body">
-                <h:form id="deployform" >
-                    <p>Server path: <h:inputText value="#{deploymentBean.path}" /></p>
-                    <p>Force: <h:selectBooleanCheckbox value="#{deploymentBean.isForce}" /></p>
-                    <p><h:commandButton action="#{deploymentBean.deploy}" value="Deploy" /></p>
-                    <p>Result: #{deploymentBean.result}</p>
+                <h:form id="deployform" class="form">
+                    <h:messages showSummary="true" showDetail="true" />
+
+<!--TODO: Success/Fail headers (when uncomment, fix the double-dashes!)
+<div class="status status- -cb status- -title status- -icon status- -success gutter- -b" role="alert" aria-labelledby="this-modal-title">
+
+    <h3 class="h3 status__title" id="this-modal-title">Status Title</h3>
+
+    <svg class="icon status__icon" width="1em" height="1em" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <use href="images/icons.svg#icon-alert"></use>
+    </svg>
+
+    <button class="button button- -clear status__close-button">
+        <svg class="icon" width="1em" height="1em" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <use href="images/delete.svg"></use>
+        </svg>
+        <span class="visually-hidden">Close Dialog</span>
+    </button>
+
+    <blinky-scroll-hints class="status__content">
+        <p class="text-align- -center">Status text. Lorem ipsum dolor sit amet consectetur adipisicing elit. Id quas, hic incidunt quos dicta veritatis facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Id quas, hic incidunt quos dicta veritatis facere. <a href="#">link</a></p>
+    </blinky-scroll-hints>
+</div>-->
+
+                    <p class="form__row">
+                        <label class="form__label" for="input1">
+                            Server path
+                            <span class="form__required">(required)</span>
+                        </label>
+                        <h:inputText value="#{deploymentBean.path}" id="path" class="form__text" />
+                    </p>
+
+                    <p class="form__row">
+                        <!--<span class="form__label">Force</span>-->
+                        <h:selectBooleanCheckbox value="#{deploymentBean.isForce}" id="force-checkbox" class="form__radbox"/>
+                        <label class="form__radbox-label" for="deployform:force-checkbox">Force</label>
+                    </p>
+                    <p class="form__row form__row--footer">
+                        <h:commandButton action="#{deploymentBean.deploy}" value="Deploy" class="button" />
+                    </p>
+                    <!--<p>Result: # {deploymentBean.result}</p>-->
                 </h:form>
             </ui:define>
         </ui:composition>

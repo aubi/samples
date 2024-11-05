@@ -19,6 +19,9 @@ package fish.payara.poc.adminrest.model.restapi;
 import jakarta.json.JsonObject;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -29,7 +32,7 @@ public class RestResponse implements Serializable {
     private String message;
     private String command;
     private String exit_code;
-//    private String properties;
+    private Map<String, String> properties = new HashMap<>();
 //                extraProperties
 //                subReports
 
@@ -40,6 +43,13 @@ public class RestResponse implements Serializable {
         message = restJsonResponse.getString("message");
         command = restJsonResponse.getString("command");
         exit_code = restJsonResponse.getString("exit_code");
+        JsonObject jsonProperties = restJsonResponse.getJsonObject("properties");
+        if (jsonProperties != null) {
+            properties = jsonProperties
+                    .entrySet()
+                    .stream()
+                    .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue().toString()));
+        }
     }
 
     @Override
@@ -71,12 +81,12 @@ public class RestResponse implements Serializable {
         this.exit_code = exit_code;
     }
 
-//    public String getProperties() {
-//        return properties;
-//    }
-//
-//    public void setProperties(String properties) {
-//        this.properties = properties;
-//    }
+    public Map<String, String> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map<String, String> properties) {
+        this.properties = properties;
+    }
 
 }

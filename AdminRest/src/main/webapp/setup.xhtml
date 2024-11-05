@@ -24,19 +24,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="title">Admin UI Setup</ui:define>
             <ui:define name="body">
-                <h:form id="setupform" >
-                    <p>Server URL: <h:inputText value="#{setupBean.url}" /></p>
-                    <p>Admin username: <h:inputText value="#{setupBean.adminUsername}" /></p>
-                    <p>Admin password: <h:inputSecret value="#{setupBean.adminPassword}" /></p>
-                    <p>
-                        <h:commandButton action="#{setupBean.save}" value="Save" />
-                        <h:commandButton action="index" immediate="true" value="Cancel" />
+                <h:form id="setupform" class="form">
+                    <h:messages showDetail="true" showSummary="true"/>
+                    <p class="form__row">
+                        <label class="form__label" for="input1">
+                            Server URL
+                            <span class="form__required">(required)</span>
+                        </label>
+                        <h:inputText value="#{setupBean.url}" />
+                    </p>
+                    <p class="form__row">
+                        <label class="form__label" for="input1">Security</label>                        
+                        <h:outputText value="Anonymous login" rendered="#{setupBean.anonymousUserEnabled}" />
+                        <h:outputText value="Secure Admin ON" rendered="#{setupBean.anonymousUserEnabled==false}" />
+                        <h:outputText value="not tested yet" rendered="#{setupBean.anonymousUserEnabled==null}" />
+                    </p>
+                    <p class="form__row">
+                        <label class="form__label" for="input1">
+                            Admin username
+                            <span class="form__required">(required)</span>
+                        </label>
+                        <h:inputText value="#{setupBean.adminUsername}" class="form__text" />
+                    </p>
+                    <p class="form__row">
+                        <label class="form__label" for="input1">
+                            Admin password
+                            <span class="form__required">(required)</span>
+                        </label>
+                        <h:inputSecret value="#{setupBean.adminPassword}" />
+                        <h:commandButton value="admin/admin" action="#{setupBean.setAdminAdmin}" class="button"/>
+                    </p>
+                    <p class="form__row form__row--footer">
+                        <h:commandButton value="Save" action="#{setupBean.save}" class="button"/>
+                        <h:commandButton value="Check" action="#{setupBean.checkSetup}" class="button"/>
+                        <h:commandButton value="Cancel" action="index" immediate="true" class="button"/>
                     </p>
                 </h:form>
                 <p>Hints:</p>
                 <ul>
-                    <li>Security: <a href="https://docs.payara.fish/community/docs/Technical%20Documentation/Payara%20Server%20Documentation/Command%20Reference/enable-secure-admin.html">enable-secure-admin</a></li>
-                    <li>How to enable secure admin:
+                    <li>How to enable <a href="https://docs.payara.fish/community/docs/Technical%20Documentation/Payara%20Server%20Documentation/Command%20Reference/enable-secure-admin.html">secure admin</a>:
                         <ul>
                             <li>First, change admin password (must not be empty): <pre>./asadmin change-admin-password</pre></li>
                             <li>Second, switch secure admin on: <pre>./asadmin enable-secure-admin</pre></li>
