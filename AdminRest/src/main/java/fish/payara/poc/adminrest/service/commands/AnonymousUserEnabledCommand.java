@@ -24,9 +24,15 @@ import jakarta.ws.rs.core.MultivaluedMap;
  * Check, if the anonymous user is enabled. E.g. if any credentials are
  * required.
  *
+ * <pre>
+ * curl -i -u "admin:admin" -H "Accept: application/json"   http://localhost:4848/management/domain/anonymous-user-enabled
+ * </pre>
+ *
  * @author Petr Aubrecht <aubrecht@asoftware.cz>
  */
 public class AnonymousUserEnabledCommand implements RemoteCommand {
+
+    private boolean isAllowed = true;
 
     public AnonymousUserEnabledCommand() {
     }
@@ -49,21 +55,10 @@ public class AnonymousUserEnabledCommand implements RemoteCommand {
 
     @Override
     public void parseResult(RestResponse response) {
-        /*
-        // JAXB
-        JAXBContext context = JAXBContext.newInstance(MapElement.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        MapElement map = (MapElement) unmarshaller.unmarshal(new InputSource(new StringReader(sb.toString())));
-        apps = map.findEntry("properties")
-                .getFirstMap()
-                .getEntries()
-                .stream()
-                .map(e -> new ApplicationInfo(e.getKey(), e.getValue()))
-                .toList();
-         */
+        isAllowed = Boolean.parseBoolean(response.getExtraProperties().get("anonymousUserEnabled").toString());
     }
 
     public boolean isAllowed() {
-        return false;
+        return isAllowed;
     }
 }

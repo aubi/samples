@@ -16,7 +16,10 @@
  */
 package fish.payara.poc.adminrest.model.restapi;
 
+import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonString;
+import jakarta.json.JsonValue;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -33,7 +36,7 @@ public class RestResponse implements Serializable {
     private String command;
     private String exit_code;
     private Map<String, String> properties = new HashMap<>();
-//                extraProperties
+    private Map<String, Object> extraProperties = new HashMap<>();
 //                subReports
 
     public RestResponse() {
@@ -50,6 +53,32 @@ public class RestResponse implements Serializable {
                     .stream()
                     .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue().toString()));
         }
+        JsonObject jsonExtraProperties = restJsonResponse.getJsonObject("extraProperties");
+        if (jsonExtraProperties != null) {
+            extraProperties = (Map<String, Object>) mapToJava(jsonExtraProperties);
+        }
+    }
+
+    private Object mapToJava(Object object) {
+        if (object instanceof JsonObject) {
+            return ((JsonObject) object)
+                    .entrySet()
+                    .stream()
+                    .collect(Collectors.toMap(e -> e.getKey(), e -> mapToJava(e.getValue())));
+        } else if (object instanceof JsonString) {
+            return ((JsonString) object).getString();
+        } else if (object instanceof JsonValue) {
+            return ((JsonValue) object).toString();
+        } else if (object instanceof JsonArray) {
+            return ((JsonArray) object)
+                    .stream()
+                    .map(o -> mapToJava(o))
+                    .toList();
+        } else if (object == null) {
+            return null;
+        } else {
+            throw new IllegalStateException("Unknown type of JSON object: " + object.getClass() + ", '" + object.toString() + "'");
+        }
     }
 
     @Override
@@ -61,32 +90,20 @@ public class RestResponse implements Serializable {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public String getCommand() {
         return command;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
     }
 
     public String getExit_code() {
         return exit_code;
     }
 
-    public void setExit_code(String exit_code) {
-        this.exit_code = exit_code;
-    }
-
     public Map<String, String> getProperties() {
         return properties;
     }
 
-    public void setProperties(Map<String, String> properties) {
-        this.properties = properties;
+    public Map<String, Object> getExtraProperties() {
+        return extraProperties;
     }
 
 }
