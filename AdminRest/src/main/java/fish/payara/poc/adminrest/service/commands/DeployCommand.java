@@ -23,6 +23,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 /**
+ * Deploy command.
+ *
+ * <pre>
+ * curl -i -X POST -u "admin:" -H "Content-Type: multipart/form-data" -H "Accept: application/json" -F "keepState=false" -F "name=clusterjsp" -F "id=/home/aubi/work/payara/server/defects/clusterjsp.war" -H "X-Requested-By: cli" -F "properties=implicitCdiEnabled=true:preserveAppScopedResources=false" -F "force=true" "http://localhost:4848/management/domain/applications/application"
+ * </pre>
  *
  * @author Petr Aubrecht <aubrecht@asoftware.cz>
  */

@@ -24,6 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * List applications command.
+ *
+ * <pre>
+ * curl -H "Accept: application/xml" http://localhost:4848/management/domain/applications/list-applications | xmllint --format -
+ * curl -H "Accept: application/json" http://localhost:4848/management/domain/applications/list-applications | jq
+ * this one contains textual data, bad for parsing
+ * </pre>
  *
  * @author Petr Aubrecht <aubrecht@asoftware.cz>
  */

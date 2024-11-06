@@ -25,6 +25,8 @@ import jakarta.ws.rs.core.MultivaluedMap;
  */
 public interface RemoteCommand {
 
+    // TODO: further commands:
+    // curl -i -u "admin:admin" -H "Accept: application/json"  http://localhost:4848/management/domain/servers/server/server/generate-jvm-report?target=server&type=summary
     public enum Verb {
         GET, POST
     };

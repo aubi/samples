@@ -66,10 +66,6 @@ public class ApplicationsBean implements Serializable {
 
     @PostConstruct
     public void loadApplications() {
-        // curl -H "Accept: application/xml" http://localhost:4848/management/domain/applications/list-applications | xmllint --format -
-        // curl -H "Accept: application/json" http://localhost:4848/management/domain/applications/list-applications | jq
-        // this one contains textual data, bad for parsing
-
         try {
             apps = payaraServer.listApplications();
         } catch (ServerException ex) {

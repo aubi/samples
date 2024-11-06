@@ -53,8 +53,6 @@ public class DeploymentBean {
     private String path;
     private Boolean isForce = Boolean.TRUE;
 
-//    private String result = null;
-
     /**
      * Creates a new instance of ApplicationsBean
      */
@@ -62,9 +60,6 @@ public class DeploymentBean {
     }
 
     public void deploy() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, JAXBException {
-        /*
-        curl -i -X POST -u "admin:" -H "Content-Type: multipart/form-data" -H "Accept: application/json" -F "keepState=false" -F "name=clusterjsp" -F "id=/home/aubi/work/payara/server/defects/clusterjsp.war" -H "X-Requested-By: cli" -F "properties=implicitCdiEnabled=true:preserveAppScopedResources=false" -F "force=true" "http://localhost:4848/management/domain/applications/application"
-         */
         DeployCommand deployCommand = new DeployCommand()
                 .id(path)
                 //.name("simpleName") // not necessary, done by id()
@@ -77,12 +72,10 @@ public class DeploymentBean {
             String result = response.getMessage();
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", result));
-            // TODO: return more!!! Eventually all fields. Create custom facelet component?
         } catch (ServerException ex) {
             Logger.getLogger(DeploymentBean.class.getName()).log(Level.SEVERE, null, ex);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Server Error", ex.getServerMessage()));
-//            result = ex.getMessage();
         }
     }
 
@@ -101,13 +94,4 @@ public class DeploymentBean {
     public void setIsForce(Boolean isForce) {
         this.isForce = isForce;
     }
-
-//    public String getResult() {
-//        return result;
-//    }
-//
-//    public void setResult(String result) {
-//        this.result = result;
-//    }
-
 }
