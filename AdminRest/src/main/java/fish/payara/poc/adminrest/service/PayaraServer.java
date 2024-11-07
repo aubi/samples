@@ -74,7 +74,7 @@ public class PayaraServer implements Serializable {
     public boolean checkAnonymousUserEnabled() throws ServerException {
         AnonymousUserEnabledCommand anonymousUserEnabledCommand = new AnonymousUserEnabledCommand();
         try {
-        RestResponse response = executeRestCall(anonymousUserEnabledCommand);
+            /*RestResponse response =*/ executeRestCall(anonymousUserEnabledCommand);
             return anonymousUserEnabledCommand.isAllowed();
         } catch (ServerException ex) {
             // HTTP code 401 is ok, meaning that secure admin is switched on,
@@ -116,10 +116,12 @@ public class PayaraServer implements Serializable {
             MultivaluedMap<String, String> payload = command.createPayload();
             Invocation.Builder invocationBuilder = client.target(targetUrl)
                     .request(MediaType.APPLICATION_JSON)
-                    .header("X-Requested-By", "cli")
-                    .header(HttpHeaders.AUTHORIZATION, constructBasicAuthentication(
-                            adminUsername, // "admin"
-                            adminPassword)); // "";
+                    .header("X-Requested-By", "cli");
+            if (command.getUseAuthorization() && !(adminPassword == null || adminPassword.isEmpty())) {
+                invocationBuilder.header(HttpHeaders.AUTHORIZATION, constructBasicAuthentication(
+                        adminUsername, // "admin"
+                        adminPassword)); // "";
+            }
 
             Response response;
             switch (command.getVerb()) {
@@ -149,7 +151,11 @@ public class PayaraServer implements Serializable {
                 throw new ServerException("Server call failing with a message '" + msg + "'", msg, response.getStatus());
             }
         } catch (Exception ex) {
-            throw new ServerException("Server call failing with a message '" + ex.getMessage() + "'", ex);
+            if (ex instanceof ServerException) {
+                throw ex; // keep existing ServerException
+            } else {
+                throw new ServerException("Server call failing with a message '" + ex.getMessage() + "'", ex);
+            }
         }
 
     }

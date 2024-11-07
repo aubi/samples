@@ -31,7 +31,7 @@ import java.util.Optional;
  *
  * @author Petr Aubrecht <aubrecht@asoftware.cz>
  */
-public class DeployCommand implements RemoteCommand {
+public class DeployCommand extends RemoteCommand {
     private static final String WAR_SUFFIX = ".war";
 
     private Optional<Boolean> keepState = Optional.of(Boolean.FALSE);

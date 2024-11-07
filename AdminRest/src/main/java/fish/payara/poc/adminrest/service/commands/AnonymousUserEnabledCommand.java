@@ -30,7 +30,7 @@ import jakarta.ws.rs.core.MultivaluedMap;
  *
  * @author Petr Aubrecht <aubrecht@asoftware.cz>
  */
-public class AnonymousUserEnabledCommand implements RemoteCommand {
+public class AnonymousUserEnabledCommand extends RemoteCommand {
 
     private boolean isAllowed = true;
 
@@ -51,6 +51,10 @@ public class AnonymousUserEnabledCommand implements RemoteCommand {
     public MultivaluedMap<String, String> createPayload() {
         MultivaluedMap<String, String> payload = new MultivaluedHashMap<>();
         return payload;
+    }
+
+    public boolean getUseAuthorization() {
+        return false;
     }
 
     @Override

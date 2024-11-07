@@ -23,7 +23,7 @@ import jakarta.ws.rs.core.MultivaluedMap;
  *
  * @author Petr Aubrecht <aubrecht@asoftware.cz>
  */
-public interface RemoteCommand {
+public abstract class RemoteCommand {
 
     // TODO: further commands:
     // curl -i -u "admin:admin" -H "Accept: application/json"  http://localhost:4848/management/domain/servers/server/server/generate-jvm-report?target=server&type=summary
@@ -31,11 +31,15 @@ public interface RemoteCommand {
         GET, POST
     };
 
-    MultivaluedMap<String, String> createPayload();
+    public abstract MultivaluedMap<String, String> createPayload();
 
-    String getUrl();
+    public abstract String getUrl();
 
-    public Verb getVerb();
+    public abstract Verb getVerb();
 
-    void parseResult(RestResponse response);
+    public abstract void parseResult(RestResponse response);
+
+    public boolean getUseAuthorization() {
+        return true;
+    }
 }

@@ -34,7 +34,7 @@ import java.util.List;
  *
  * @author Petr Aubrecht <aubrecht@asoftware.cz>
  */
-public class ListApplicationsCommand implements RemoteCommand {
+public class ListApplicationsCommand extends RemoteCommand {
 
     private List<ApplicationInfo> applications = new ArrayList<>();
 

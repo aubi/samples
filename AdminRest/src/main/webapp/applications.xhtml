@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <ui:define name="title">List of Applications</ui:define>
             <ui:define name="body">
                 <h:form id="apps-form" class="form">
+                    <h:messages showDetail="true"/>
                     <p class="form__row">
                         <h:commandButton value="Refresh" action="#{applicationsBean.loadApplications}" class="button"/>
                     </p>
@@ -62,7 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             </h:dataTable>
                         </div>
                     </div>
-                    <h:messages showDetail="true"/>
                 </h:form>
             </ui:define>
         </ui:composition>
