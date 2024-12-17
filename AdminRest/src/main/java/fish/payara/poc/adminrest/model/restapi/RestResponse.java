@@ -73,7 +73,7 @@ public class RestResponse implements Serializable {
             return ((JsonArray) object)
                     .stream()
                     .map(o -> mapToJava(o))
-                    .toList();
+                    .collect(Collectors.toList());
         } else if (object == null) {
             return null;
         } else {
