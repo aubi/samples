@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="${request.contextPath}/blinky/ui/css/payara.css" type="text/css" media="all"/>
         <link rel="preload" href="${request.contextPath}/blinky/ui/fonts/ibm-plex-sans-v2-latin-regular.woff2" as="font" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" type="text/javascript"></script>
+        <ui:insert name="headerScript"></ui:insert>
     </h:head>
     <h:body class="page theme--light">
         <header class="page__header">
@@ -63,6 +65,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 <li class="menu__item">
                                     <a href="deploy.xhtml" class="menu__content">
                                         <span class="menu__text">Deploy New Application</span>
+                                    </a>
+                                </li>
+                                <li class="menu__item">
+                                    <a href="monitoring.xhtml" class="menu__content">
+                                        <span class="menu__text">Monitoring</span>
                                     </a>
                                 </li>
                             </ul>

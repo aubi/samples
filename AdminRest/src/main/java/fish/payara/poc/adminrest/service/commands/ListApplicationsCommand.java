@@ -22,6 +22,7 @@ import jakarta.ws.rs.core.MultivaluedHashMap;
 import jakarta.ws.rs.core.MultivaluedMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * List applications command.
@@ -63,7 +64,7 @@ public class ListApplicationsCommand extends RemoteCommand {
                 .entrySet()
                 .stream()
                 .map(e -> new ApplicationInfo(e.getKey(), e.getValue()))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public List<ApplicationInfo> getApplications() {
