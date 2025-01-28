@@ -36,13 +36,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <script type="text/javascript">
                     async function fetchAndUpdateChart() {
                         try {
-                            const response = await fetch('/AdminRest-1.0-SNAPSHOT/monitoring-data'); // Backend endpoint
+                            const response = await fetch('http://localhost:8080/AdminRest-1.0-SNAPSHOT/resources/monitoring-data'); // Adjusted endpoint
                             const data = await response.json();
 
                             const cpuUsage = (data.cpuUsage * 100).toFixed(2); // Convert to percentage
                             const memoryUsage = (data.memoryUsage / (1024 * 1024)).toFixed(2); // Convert bytes to MB
 
-                            // Update chart data
                             myChart.data.datasets[0].data.push(cpuUsage);
                             myChart.data.datasets[1].data.push(memoryUsage);
 
@@ -60,11 +59,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             // Re-render the chart
                             myChart.update();
                         } catch (error) {
-                            console.error('Error fetching monitoring data:', error);
+                            console.error("Error updating chart:", error);
                         }
                     }
 
-                    // Periodically fetch and update data every 5 seconds
+                    // fetch and update data every 5 seconds
                     setInterval(fetchAndUpdateChart, 5000);
 
                 </script>
