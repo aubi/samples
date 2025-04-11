@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <script type="text/javascript">
                     async function fetchAndUpdateChart() {
                         try {
-                            const response = await fetch('http://localhost:8080/AdminRest-1.0-SNAPSHOT/resources/monitoring-data'); // Adjusted endpoint
+                            const response = await fetch('resources/monitoring-data'); // Adjusted endpoint
                             const data = await response.json();
 
                             const cpuUsage = (data.cpuUsage * 100).toFixed(2); // Convert to percentage
