@@ -67,7 +67,7 @@ public class MonitoringService {
                 .build();
 
         // Prepare login data
-        String postData = "j_username=admin&j_password=admin";
+        String postData = "j_username=admin&j_password=";
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(LOGIN_URL))
                 .header("Content-Type", "application/x-www-form-urlencoded")
